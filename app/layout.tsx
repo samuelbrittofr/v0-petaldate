@@ -4,16 +4,19 @@ import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/lib/cart-context'
 import { WishlistProvider } from '@/lib/wishlist-context'
 import { CartDrawer } from '@/components/cart-drawer'
+import { ScrollRestoration } from '@/components/scroll-restoration'
 import './globals.css'
 
 const inter = Inter({ 
   subsets: ["latin"],
   variable: '--font-inter',
+  display: 'swap',
 })
 
 const playfair = Playfair_Display({ 
   subsets: ["latin"],
   variable: '--font-playfair',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -49,6 +52,7 @@ export const viewport: Viewport = {
   themeColor: '#F5EDE4',
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 5,
 }
 
 export default function RootLayout({
@@ -57,10 +61,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} bg-background`}>
-      <body className="font-sans antialiased overflow-x-hidden">
+    <html lang="en" className={`${inter.variable} ${playfair.variable} bg-background`} suppressHydrationWarning>
+      <body className="font-sans antialiased overflow-x-hidden min-h-screen">
         <CartProvider>
           <WishlistProvider>
+            <ScrollRestoration />
+            {/* Premium grain texture overlay */}
+            <div className="grain-overlay" aria-hidden="true" />
             {children}
             <CartDrawer />
           </WishlistProvider>
