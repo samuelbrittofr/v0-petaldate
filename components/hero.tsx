@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
 
@@ -100,20 +101,24 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="flex flex-col sm:flex-row items-center gap-4 mt-10"
         >
-          <Button 
-            size="lg" 
-            className="bg-espresso hover:bg-brown text-primary-foreground px-8 py-6 text-base font-medium rounded-full group"
-          >
-            Explore Kits
-            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Button>
-          <Button 
-            variant="outline" 
-            size="lg" 
-            className="border-rose/40 hover:bg-rose/10 text-espresso px-8 py-6 text-base font-medium rounded-full"
-          >
-            Pick Your Vibe
-          </Button>
+          <Link href="/shop">
+            <Button 
+              size="lg" 
+              className="bg-espresso hover:bg-brown text-primary-foreground px-8 py-6 text-base font-medium rounded-full group"
+            >
+              Explore Kits
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
+          <Link href="/shop">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-rose/40 hover:bg-rose/10 text-espresso px-8 py-6 text-base font-medium rounded-full"
+            >
+              Pick Your Vibe
+            </Button>
+          </Link>
         </motion.div>
 
         {/* Microcopy */}
