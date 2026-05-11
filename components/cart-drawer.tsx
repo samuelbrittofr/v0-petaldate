@@ -2,12 +2,14 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Minus, Plus, Trash2, ShoppingBag, Sparkles, Truck } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useCart } from "@/lib/cart-context"
 import { Button } from "@/components/ui/button"
 import { addOns } from "@/lib/products"
 import { cn } from "@/lib/utils"
 
 export function CartDrawer() {
+  const router = useRouter()
   const {
     items,
     isOpen,
@@ -24,6 +26,16 @@ export function CartDrawer() {
 
   const suggestedAddOns = addOns.filter((a) => a.popular).slice(0, 3)
 
+  const goToShop = () => {
+    closeCart()
+    router.push("/shop")
+  }
+
+  const goToCheckout = () => {
+    closeCart()
+    router.push("/checkout")
+  }
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -33,6 +45,7 @@ export function CartDrawer() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             onClick={closeCart}
             className="fixed inset-0 bg-espresso/40 backdrop-blur-sm z-50"
           />
@@ -42,7 +55,7 @@ export function CartDrawer() {
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
             className="fixed right-0 top-0 h-full w-full max-w-md bg-card border-l border-border z-50 flex flex-col shadow-2xl"
           >
             {/* Header */}
@@ -115,7 +128,7 @@ export function CartDrawer() {
                     Time to discover your next cozy night in
                   </p>
                   <Button
-                    onClick={closeCart}
+                    onClick={goToShop}
                     className="bg-espresso hover:bg-brown text-white rounded-full"
                   >
                     Browse Kits
@@ -261,6 +274,7 @@ export function CartDrawer() {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={goToCheckout}
                   className={cn(
                     "w-full py-4 rounded-full font-medium text-white transition-all",
                     "bg-gradient-to-r from-rose to-primary hover:shadow-lg hover:shadow-rose/25"

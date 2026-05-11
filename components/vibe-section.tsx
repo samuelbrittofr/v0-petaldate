@@ -1,6 +1,7 @@
 "use client"
 
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion"
+import Link from "next/link"
+import { motion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion"
 import { useRef } from "react"
 import { cn } from "@/lib/utils"
 
@@ -49,52 +50,47 @@ const vibes = [
 
 export function VibeSection() {
   const containerRef = useRef<HTMLDivElement>(null)
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start start", "end end"],
   })
 
   const progress = useTransform(scrollYProgress, [0, 1], [0, vibes.length - 1])
+  const smoothProgress = useSpring(progress, {
+    stiffness: 120,
+    damping: 28,
+    mass: 0.22,
+  })
 
   return (
-    <section id="vibes" ref={containerRef} className="relative min-h-[400vh] bg-background">
-      {/* Section Header */}
-      <div className="sticky top-0 h-screen flex flex-col overflow-hidden">
-        <motion.div 
+    <section id="vibes" ref={containerRef} className="relative min-h-[420vh] bg-background">
+      <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center pt-24 pb-8 px-4"
+          className="px-4 pb-8 pt-24 text-center"
         >
-          <h2 className="font-serif text-3xl md:text-5xl text-espresso mb-3">
-            Pick Your <span className="text-rose italic">Vibe</span>
+          <h2 className="mb-3 font-serif text-3xl text-espresso md:text-5xl">
+            Pick Your <span className="italic text-rose">Vibe</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-lg text-muted-foreground">
             Every relationship deserves something special
           </p>
         </motion.div>
 
-        {/* Cards Container */}
-        <div className="flex-1 relative flex items-center justify-center px-4 pb-12">
+        <div className="relative flex flex-1 items-center justify-center px-4 pb-16">
           {vibes.map((vibe, index) => (
-            <VibeCard
-              key={vibe.id}
-              vibe={vibe}
-              index={index}
-              progress={progress}
-            />
+            <VibeCard key={vibe.id} vibe={vibe} index={index} progress={smoothProgress} />
           ))}
         </div>
 
-        {/* Progress Dots */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
-          <ProgressDot index={0} progress={progress} />
-          <ProgressDot index={1} progress={progress} />
-          <ProgressDot index={2} progress={progress} />
-          <ProgressDot index={3} progress={progress} />
-          <ProgressDot index={4} progress={progress} />
+        <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 gap-2">
+          {vibes.map((_, index) => (
+            <ProgressDot key={index} index={index} progress={smoothProgress} />
+          ))}
         </div>
       </div>
     </section>
@@ -102,90 +98,77 @@ export function VibeSection() {
 }
 
 function ProgressDot({ index, progress }: { index: number; progress: MotionValue<number> }) {
+  const scale = useTransform(progress, [index - 0.7, index, index + 0.7], [0.9, 1.3, 0.9])
   const backgroundColor = useTransform(
     progress,
-    [index - 0.5, index, index + 0.5],
-    ["var(--border)", "var(--rose)", "var(--border)"]
+    [index - 0.6, index, index + 0.6],
+    ["var(--border)", "var(--rose)", "var(--border)"],
   )
 
-  return (
-    <motion.div
-      className="w-2 h-2 rounded-full"
-      style={{ backgroundColor }}
-    />
-  )
+  return <motion.div className="h-2 w-2 rounded-full" style={{ scale, backgroundColor }} />
 }
 
 interface VibeCardProps {
-  vibe: typeof vibes[0]
+  vibe: typeof vibes[number]
   index: number
   progress: MotionValue<number>
 }
 
 function VibeCard({ vibe, index, progress }: VibeCardProps) {
-  const cardProgress = useTransform(progress, [index - 1, index, index + 1], [1, 0, -1])
-  
-  const y = useTransform(cardProgress, [-1, 0, 1], [-100, 0, 100])
-  const scale = useTransform(cardProgress, [-1, 0, 1], [0.85, 1, 0.85])
-  const opacity = useTransform(cardProgress, [-1, -0.5, 0, 0.5, 1], [0, 1, 1, 1, 0])
-  const rotateX = useTransform(cardProgress, [-1, 0, 1], [15, 0, -15])
+  const distance = useTransform(progress, (value) => value - index)
+  const y = useTransform(distance, [-1.5, -1, 0, 1, 1.5], [-220, -110, 0, 110, 220])
+  const scale = useTransform(distance, [-1.5, -1, 0, 1, 1.5], [0.76, 0.88, 1, 0.9, 0.78])
+  const opacity = useTransform(distance, [-1.6, -1.15, -0.15, 0, 0.15, 1.15, 1.6], [0, 0.2, 0.84, 1, 0.96, 0.24, 0])
+  const rotateX = useTransform(distance, [-1.5, 0, 1.5], [22, 0, -22])
+  const rotateZ = useTransform(distance, [-1.5, -0.6, 0, 0.6, 1.5], [-6, -2, 0, 2, 6])
+  const blur = useTransform(distance, [-1.5, -0.7, 0, 0.7, 1.5], [8, 3, 0, 3, 8])
+  const zIndex = useTransform(distance, [-1.5, 0, 1.5], [1, 20, 1])
 
   return (
     <motion.div
-      style={{ y, scale, opacity, rotateX }}
-      className="absolute w-full max-w-lg mx-auto"
+      style={{ y, scale, opacity, rotateX, rotateZ, zIndex, filter: useTransform(blur, (value) => `blur(${value}px)`) }}
+      className="absolute mx-auto w-full max-w-lg [transform-style:preserve-3d]"
     >
       <motion.div
-        whileHover={{ scale: 1.02 }}
+        whileHover={{ scale: 1.015 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
-          "relative bg-gradient-to-br rounded-3xl p-8 md:p-10",
-          "border border-border/50 shadow-2xl shadow-brown/5",
-          "backdrop-blur-sm overflow-hidden",
-          vibe.color
+          "relative overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br p-8 shadow-2xl shadow-brown/5 backdrop-blur-sm md:p-10",
+          vibe.color,
         )}
       >
-        {/* Decorative Elements */}
-        <div className="absolute top-4 right-4 text-6xl opacity-20">
+        <div className="absolute right-4 top-4 text-6xl opacity-20">
           {vibe.emoji}
         </div>
-        
+
         <div className="relative z-10">
-          {/* Tag */}
-          <span className="inline-block px-3 py-1 bg-card/80 backdrop-blur-sm rounded-full text-xs font-medium text-rose mb-4">
+          <span className="mb-4 inline-block rounded-full bg-card/80 px-3 py-1 text-xs font-medium text-rose backdrop-blur-sm">
             {vibe.tagline}
           </span>
-          
-          {/* Title */}
-          <h3 className="font-serif text-2xl md:text-3xl text-espresso mb-3">
+
+          <h3 className="mb-3 font-serif text-2xl text-espresso md:text-3xl">
             {vibe.title}
           </h3>
-          
-          {/* Description */}
-          <p className="text-brown/70 leading-relaxed mb-6">
+
+          <p className="mb-6 leading-relaxed text-brown/70">
             {vibe.description}
           </p>
-          
-          {/* CTA */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="flex items-center gap-2 text-espresso font-medium group"
-          >
+
+          <Link href={`/shop?category=${vibe.id}`} className="group inline-flex items-center gap-2 font-medium text-espresso">
             Explore {vibe.title.split(" ")[0]}
-            <svg 
-              className="w-4 h-4 group-hover:translate-x-1 transition-transform" 
-              fill="none" 
-              viewBox="0 0 24 24" 
+            <svg
+              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+              fill="none"
+              viewBox="0 0 24 24"
               stroke="currentColor"
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </motion.button>
+          </Link>
         </div>
 
-        {/* Bottom decorative image placeholder */}
-        <div className="mt-6 h-32 md:h-40 rounded-2xl bg-card/50 overflow-hidden">
-          <div className="w-full h-full bg-gradient-to-br from-white/50 to-transparent flex items-center justify-center">
+        <div className="mt-6 h-32 overflow-hidden rounded-2xl bg-card/50 md:h-40">
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-white/50 to-transparent">
             <span className="text-5xl">{vibe.emoji}</span>
           </div>
         </div>

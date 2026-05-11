@@ -1,0 +1,13 @@
+
+> my-project@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.88.5:3000
+✓ Ready in 328ms
+
+○ Compiling / ...
+✓ Finished writing to filesystem cache in 41s
+✓ Finished filesystem cache database compaction in 31.4s
+✓ Finished writing to filesystem cache in 13.3s

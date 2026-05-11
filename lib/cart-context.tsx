@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react"
 import type { Product, AddOn } from "./products"
 
 export interface CartItem {
@@ -31,10 +31,32 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 const SHIPPING_THRESHOLD = 99 // $99 for free shipping
+const CART_STORAGE_KEY = "petaldate-cart"
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const storedCart = window.localStorage.getItem(CART_STORAGE_KEY)
+    if (!storedCart) return
+
+    try {
+      const parsed = JSON.parse(storedCart) as CartItem[]
+      if (Array.isArray(parsed)) {
+        setItems(parsed)
+      }
+    } catch {
+      window.localStorage.removeItem(CART_STORAGE_KEY)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items))
+  }, [items])
 
   const openCart = useCallback(() => setIsOpen(true), [])
   const closeCart = useCallback(() => setIsOpen(false), [])

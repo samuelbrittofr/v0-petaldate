@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Heart } from "lucide-react"
 
@@ -111,13 +112,15 @@ export function FinalCTA() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-10"
         >
-          <Button 
-            size="lg" 
-            className="bg-espresso hover:bg-brown text-primary-foreground px-10 py-7 text-lg font-medium rounded-full group shadow-xl shadow-brown/20"
-          >
-            Shop Date Kits
-            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <Link href="/shop">
+            <Button 
+              size="lg" 
+              className="bg-espresso hover:bg-brown text-primary-foreground px-10 py-7 text-lg font-medium rounded-full group shadow-xl shadow-brown/20"
+            >
+              Shop Date Kits
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </motion.div>
 
         {/* Trust Badges */}
@@ -130,7 +133,7 @@ export function FinalCTA() {
         >
           <span className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-green-500" />
-            Free Shipping over $75
+            Free Shipping over $99
           </span>
           <span className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-rose" />

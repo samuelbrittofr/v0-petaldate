@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react"
 import type { Product } from "./products"
 
 interface WishlistContextType {
@@ -13,9 +13,31 @@ interface WishlistContextType {
 }
 
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined)
+const WISHLIST_STORAGE_KEY = "petaldate-wishlist"
 
 export function WishlistProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<Product[]>([])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const storedWishlist = window.localStorage.getItem(WISHLIST_STORAGE_KEY)
+    if (!storedWishlist) return
+
+    try {
+      const parsed = JSON.parse(storedWishlist) as Product[]
+      if (Array.isArray(parsed)) {
+        setItems(parsed)
+      }
+    } catch {
+      window.localStorage.removeItem(WISHLIST_STORAGE_KEY)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    window.localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(items))
+  }, [items])
 
   const addItem = useCallback((product: Product) => {
     setItems((prev) => {

@@ -1,0 +1,175 @@
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\dxrkp\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\dxrkp\OneDrive\Desktop\v0-petaldate-homepage-build\pnpm-lock.yaml
+
+
+
+
+
+
+
+#
+#
+#
+# Fatal process out of memory: Re-embedded builtins: set permissions
+# Fatal process out of memory: Re-embedded builtins: set permissions
+# Fatal process out of memory: Re-embedded builtins: set permissions
+#
+----- Native stack trace -----
+
+#
+#
+ 1: 00007FF7B6FF0ECD node::MultiIsolatePlatform::DisposeIsolate+5341
+----- Native stack trace -----
+----- Native stack trace -----
+ 2: 00007FF7B84536B6 v8::base::FatalOOM+54
+
+
+ 3: 00007FF7B7CE61F6 v8::Function::NewInstance+390
+ 1: 00007FF7B6FF0ECD node::MultiIsolatePlatform::DisposeIsolate+5341
+ 1: 00007FF7B6FF0ECD node::MultiIsolatePlatform::DisposeIsolate+5341
+ 4: 00007FF7B7B4D52E v8::CppHeap::CollectGarbageInYoungGenerationForTesting+111438
+ 2: 00007FF7B84536B6 v8::base::FatalOOM+54
+ 2: 00007FF7B84536B6 v8::base::FatalOOM+54
+ 5: 00007FF7B7B80B5F SSL_CTX_set_default_read_buffer_len+41247
+ 3: 00007FF7B7CE61F6 v8::Function::NewInstance+390
+ 3: 00007FF7B7CE61F6 v8::Function::NewInstance+390
+ 6: 00007FF7B7B81612 SSL_CTX_set_default_read_buffer_len+43986
+ 4: 00007FF7B7B4D52E v8::CppHeap::CollectGarbageInYoungGenerationForTesting+111438
+ 4: 00007FF7B7B4D52E v8::CppHeap::CollectGarbageInYoungGenerationForTesting+111438
+ 7: 00007FF7B7B81FF2 SSL_CTX_set_default_read_buffer_len+46514
+ 5: 00007FF7B7B80B5F SSL_CTX_set_default_read_buffer_len+41247
+ 8: 00007FF7B767DE33 v8::internal::Version::GetSONAME+122307
+ 5: 00007FF7B7B80B5F SSL_CTX_set_default_read_buffer_len+41247
+ 6: 00007FF7B7B81612 SSL_CTX_set_default_read_buffer_len+43986
+ 6: 00007FF7B7B81612 SSL_CTX_set_default_read_buffer_len+43986
+ 9: 00007FF7B7D110B6 v8::Isolate::Initialize+662
+ 7: 00007FF7B7B81FF2 SSL_CTX_set_default_read_buffer_len+46514
+ 7: 00007FF7B7B81FF2 SSL_CTX_set_default_read_buffer_len+46514
+10: 00007FF7B71AA22D node::SetIsolateUpForNode+749
+ 8: 00007FF7B767DE33 v8::internal::Version::GetSONAME+122307
+ 8: 00007FF7B767DE33 v8::internal::Version::GetSONAME+122307
+11: 00007FF7B6F05B73 RSA_meth_get_flags+222691
+ 9: 00007FF7B7D110B6 v8::Isolate::Initialize+662
+ 9: 00007FF7B7D110B6 v8::Isolate::Initialize+662
+12: 00007FF7B6F04F09 RSA_meth_get_flags+219513
+10: 00007FF7B71AA22D node::SetIsolateUpForNode+749
+10: 00007FF7B71AA22D node::SetIsolateUpForNode+749
+13: 00007FF7B6F0EA90 RSA_meth_get_flags+259328
+11: 00007FF7B6F05B73 RSA_meth_get_flags+222691
+11: 00007FF7B6F05B73 RSA_meth_get_flags+222691
+14: 00007FF7B7D3B1A6 uv_thread_detach+150
+12: 00007FF7B6F04F09 RSA_meth_get_flags+219513
+12: 00007FF7B6F04F09 RSA_meth_get_flags+219513
+15: 00007FF7B8F9B0B3 v8::base::UnsignedDivisionByConstant<unsigned __int64>+2907267
+13: 00007FF7B6F0EA90 RSA_meth_get_flags+259328
+13: 00007FF7B6F0EA90 RSA_meth_get_flags+259328
+16: 00007FFA111DE8D7 BaseThreadInitThunk+23
+14: 00007FF7B7D3B1A6 uv_thread_detach+150
+14: 00007FF7B7D3B1A6 uv_thread_detach+150
+17: 00007FFA1232C3FC RtlUserThreadStart+44
+15: 00007FF7B8F9B0B3 v8::base::UnsignedDivisionByConstant<unsigned __int64>+2907267
+15: 00007FF7B8F9B0B3 v8::base::UnsignedDivisionByConstant<unsigned __int64>+2907267
+16: 00007FFA111DE8D7 BaseThreadInitThunk+23
+16: 00007FFA111DE8D7 BaseThreadInitThunk+23
+17: 00007FFA1232C3FC RtlUserThreadStart+44
+17: 00007FFA1232C3FC RtlUserThreadStart+44
+
+
+#
+# Fatal process out of memory: Re-embedded builtins: set permissions
+#
+----- Native stack trace -----
+
+ 1: 00007FF7B6FF0ECD node::MultiIsolatePlatform::DisposeIsolate+5341
+ 2: 00007FF7B84536B6 v8::base::FatalOOM+54
+ 3: 00007FF7B7CE61F6 v8::Function::NewInstance+390
+ 4: 00007FF7B7B4D52E v8::CppHeap::CollectGarbageInYoungGenerationForTesting+111438
+ 5: 00007FF7B7B80B5F SSL_CTX_set_default_read_buffer_len+41247
+ 6: 00007FF7B7B81612 SSL_CTX_set_default_read_buffer_len+43986
+ 7: 00007FF7B7B81FF2 SSL_CTX_set_default_read_buffer_len+46514
+ 8: 00007FF7B767DE33 v8::internal::Version::GetSONAME+122307
+ 9: 00007FF7B7D110B6 v8::Isolate::Initialize+662
+10: 00007FF7B71AA22D node::SetIsolateUpForNode+749
+11: 00007FF7B6F05B73 RSA_meth_get_flags+222691
+12: 00007FF7B6F04F09 RSA_meth_get_flags+219513
+13: 00007FF7B6F0EA90 RSA_meth_get_flags+259328
+14: 00007FF7B7D3B1A6 uv_thread_detach+150
+15: 00007FF7B8F9B0B3 v8::base::UnsignedDivisionByConstant<unsigned __int64>+2907267
+16: 00007FFA111DE8D7 BaseThreadInitThunk+23
+17: 00007FFA1232C3FC RtlUserThreadStart+44
+
+
+#
+# Fatal process out of memory: Re-embedded builtins: set permissions
+#
+----- Native stack trace -----
+
+ 1: 00007FF7B6FF0ECD 
+ 2: 00007FF7B84536B6 
+ 3: 00007FF7B7CE61F6 
+ 4: 00007FF7B7B4D52E 
+ 5: 00007FF7B7B80B5F 
+ 6: 00007FF7B7B81612 
+ 7: 00007FF7B7B81FF2 
+ 8: 00007FF7B767DE33 
+ 9: 00007FF7B7D110B6 
+10: 00007FF7B71AA22D 
+11: 00007FF7B6F05B73 
+12: 00007FF7B6F04F09 
+13: 00007FF7B6F0EA90 
+14: 00007FF7B7D3B1A6 
+15: 00007FF7B8F9B0B3 
+16: 00007FFA111DE8D7 BaseThreadInitThunk+23
+17: 00007FFA1232C3FC RtlUserThreadStart+44
+
+
+#
+# Fatal process out of memory: Re-embedded builtins: set permissions
+#
+----- Native stack trace -----
+
+ 1: 00007FF7B6FF0ECD 
+ 2: 00007FF7B84536B6 
+ 3: 00007FF7B7CE61F6 
+ 4: 00007FF7B7B4D52E 
+ 5: 00007FF7B7B80B5F 
+ 6: 00007FF7B7B81612 
+ 7: 00007FF7B7B81FF2 
+ 8: 00007FF7B767DE33 
+ 9: 00007FF7B7D110B6 
+10: 00007FF7B71AA22D 
+11: 00007FF7B6F05B73 
+12: 00007FF7B6F04F09 
+13: 00007FF7B6F0EA90 
+14: 00007FF7B7D3B1A6 
+15: 00007FF7B8F9B0B3 
+16: 00007FFA111DE8D7 BaseThreadInitThunk+23
+17: 00007FFA1232C3FC RtlUserThreadStart+44
+
+
+#
+# Fatal process out of memory: Re-embedded builtins: set permissions
+#
+----- Native stack trace -----
+
+ 1: 00007FF7B6FF0ECD 
+ 2: 00007FF7B84536B6 
+ 3: 00007FF7B7CE61F6 
+ 4: 00007FF7B7B4D52E 
+ 5: 00007FF7B7B80B5F 
+ 6: 00007FF7B7B81612 
+ 7: 00007FF7B7B81FF2 
+ 8: 00007FF7B767DE33 
+ 9: 00007FF7B7D110B6 
+10: 00007FF7B71AA22D 
+11: 00007FF7B6F05B73 
+12: 00007FF7B6F04F09 
+13: 00007FF7B6F0EA90 
+14: 00007FF7B7D3B1A6 
+15: 00007FF7B8F9B0B3 
+16: 00007FFA111DE8D7 BaseThreadInitThunk+23
+17: 00007FFA1232C3FC RtlUserThreadStart+44
