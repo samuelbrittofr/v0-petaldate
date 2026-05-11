@@ -1,15 +1,23 @@
-import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { Inter, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: '--font-inter',
+})
+
+const playfair = Playfair_Display({ 
+  subsets: ["latin"],
+  variable: '--font-playfair',
+})
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'PetalDate | Pinterest Dates, Delivered',
+  description: 'Paint nights, cozy movie dates, clay kits, scrapbook memories and aesthetic experiences — all planned for you. Turn your Pinterest dreams into real date nights.',
   generator: 'v0.app',
+  keywords: ['date night', 'date kit', 'couples activities', 'paint date', 'clay date', 'romantic gifts', 'date ideas'],
   icons: {
     icon: [
       {
@@ -27,6 +35,17 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-icon.png',
   },
+  openGraph: {
+    title: 'PetalDate | Pinterest Dates, Delivered',
+    description: 'Turn Pinterest-worthy date ideas into real experiences. No planning, no stress — just open the box and make memories.',
+    type: 'website',
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#F5EDE4',
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({
@@ -35,8 +54,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans antialiased">
+    <html lang="en" className={`${inter.variable} ${playfair.variable} bg-background`}>
+      <body className="font-sans antialiased overflow-x-hidden">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
